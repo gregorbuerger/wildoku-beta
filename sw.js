@@ -1,11 +1,16 @@
-const CACHE='wildoku-beta-0.7.4';
+const CACHE='wildoku-beta-0.7.5';
 const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
     const cache=await caches.open(CACHE);
-    await cache.addAll(APP_SHELL);
-    await self.skipWaiting();
+    // Frische Dateien fuer die neue Version laden, aber NICHT automatisch aktivieren.
+    for(const path of APP_SHELL){
+      const req=new Request(path,{cache:'reload'});
+      const res=await fetch(req);
+      if(!res.ok) throw new Error('Cache install failed: '+path);
+      await cache.put(path,res.clone());
+    }
   })());
 });
 
@@ -22,40 +27,17 @@ self.addEventListener('message',event=>{
 });
 
 self.addEventListener('fetch',event=>{
-  const req=event.request;
-  if(req.method!=='GET') return;
+  const req=event.request;if(req.method!=='GET')return;
   const url=new URL(req.url);
-  if(url.origin===self.location.origin && url.pathname.endsWith('/version.json')){
-    event.respondWith(fetch(req,{cache:'no-store'}));
-    return;
-  }
+  if(url.origin===self.location.origin&&url.pathname.endsWith('/version.json')){event.respondWith(fetch(req,{cache:'no-store'}));return;}
   if(req.mode==='navigate'){
     event.respondWith((async()=>{
-      const cache=await caches.open(CACHE);
-      const local=await cache.match('./index.html') || await cache.match('./');
-      if(local) return local;
       try{
         const fresh=await fetch(req,{cache:'no-store'});
-        if(fresh&&fresh.ok) await cache.put('./index.html',fresh.clone());
-        return fresh;
-      }catch(err){
-        return new Response('<!doctype html><meta charset="utf-8"><title>Wildoku Beta</title><p>Wildoku Beta konnte lokal nicht geladen werden. Bitte einmal online starten, damit die Offline-Version gespeichert wird.</p>',{headers:{'Content-Type':'text/html; charset=utf-8'}});
-      }
-    })());
-    return;
+        if(fresh&&fresh.ok){const c=await caches.open(CACHE);await c.put('./index.html',fresh.clone());return fresh;}
+      }catch(_){ }
+      const c=await caches.open(CACHE);return (await c.match('./index.html'))||(await c.match('./'))||Response.error();
+    })());return;
   }
-  if(url.origin===self.location.origin){
-    event.respondWith((async()=>{
-      const cache=await caches.open(CACHE);
-      const local=await cache.match(req);
-      if(local) return local;
-      try{
-        const fresh=await fetch(req);
-        if(fresh&&fresh.ok) await cache.put(req,fresh.clone());
-        return fresh;
-      }catch(err){
-        return new Response('',{status:504,statusText:'Offline'});
-      }
-    })());
-  }
+  if(url.origin===self.location.origin){event.respondWith((async()=>{const c=await caches.open(CACHE);const hit=await c.match(req);if(hit)return hit;try{const fresh=await fetch(req);if(fresh&&fresh.ok)await c.put(req,fresh.clone());return fresh}catch(_){return new Response('',{status:504})}})())}
 });
