@@ -1,4 +1,4 @@
-const CACHE='wildoku-beta-0.7.7';
+const CACHE='wildoku-beta-0.7.8';
 const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install',event=>{
