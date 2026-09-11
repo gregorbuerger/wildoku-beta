@@ -1,4 +1,4 @@
-const CACHE='wildoku-beta-0.9.10';
+const CACHE='wildoku-beta-0.9.11';
 const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./fox-avatar.png',
 './forest-bg.svg','./tree-stump.svg','./boulder.svg','./campfire.svg','./lantern.svg','./flat-rock.svg','./bench.svg',
 './fox-character.png','./hannah-character.png','./ben-character.png','./clara-character.png','./marcel-character.png','./tom-character.png',
