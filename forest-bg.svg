@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1081 653">
+<defs>
+ <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#77c9ff"/><stop offset="1" stop-color="#dff3ff"/></linearGradient>
+ <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d8e9a9"/><stop offset="1" stop-color="#86b95e"/></linearGradient>
+ <linearGradient id="water" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#58c7df"/><stop offset=".5" stop-color="#2fa7cf"/><stop offset="1" stop-color="#69d0df"/></linearGradient>
+ <filter id="soft"><feGaussianBlur stdDeviation="2"/></filter>
+</defs>
+<rect width="1081" height="653" rx="28" fill="url(#sky)"/>
+<!-- distant mountains -->
+<path d="M350 210 L520 70 L635 195 L720 108 L855 220 Z" fill="#7d98b8" opacity=".95"/>
+<path d="M420 198 L520 70 L568 128 L606 102 L635 195" fill="#eef5f7" opacity=".95"/>
+<path d="M650 195 L720 108 L758 154 L794 138 L855 220" fill="#f3f8fb" opacity=".9"/>
+<!-- tree line -->
+<g fill="#1f5a3d">
+ <path d="M0 250L40 110l40 140zM70 250l45-155 45 155zM150 250l48-170 48 170zM245 250l40-145 40 145zM790 250l45-155 45 155zM870 250l52-180 52 180zM960 250l48-168 48 168z"/>
+</g>
+<g fill="#2f744e" opacity=".9">
+ <path d="M300 250l38-130 38 130zM360 250l44-145 44 145zM430 250l40-128 40 128zM500 250l36-115 36 115zM570 250l44-140 44 140zM640 250l36-118 36 118zM710 250l42-138 42 138z"/>
+</g>
+<!-- lake -->
+<path d="M250 205 C390 180 655 185 830 225 C735 300 350 320 195 255 Z" fill="url(#water)"/>
+<g stroke="#d9fbff" stroke-width="5" opacity=".55"><path d="M300 225h160M520 242h185M360 270h270M660 266h105"/></g>
+<!-- dock -->
+<g stroke="#5b361d" stroke-width="12" stroke-linecap="round"><path d="M430 237l-52 60M430 237h168M598 237l65 58"/><path d="M398 258h185M387 275h210"/></g>
+<!-- ground -->
+<path d="M0 300 C205 255 344 275 518 310 C700 345 900 292 1081 315 L1081 653 L0 653 Z" fill="url(#ground)"/>
+<path d="M475 290 C540 335 560 390 555 653 L750 653 C700 510 660 405 605 315Z" fill="#d9b36e" opacity=".62"/>
+<!-- shrubs -->
+<g fill="#3f7f43" opacity=".95"><circle cx="95" cy="350" r="72"/><circle cx="998" cy="348" r="78"/><circle cx="155" cy="625" r="95"/><circle cx="955" cy="610" r="105"/></g>
+<g fill="#f4f0c6"><circle cx="55" cy="535" r="6"/><circle cx="82" cy="555" r="5"/><circle cx="930" cy="528" r="6"/><circle cx="1005" cy="560" r="5"/><circle cx="905" cy="605" r="6"/><circle cx="180" cy="590" r="5"/></g>
+</svg>
