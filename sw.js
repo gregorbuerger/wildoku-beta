@@ -1,5 +1,5 @@
-const CACHE='wildoku-beta-0.9.0';
-const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./fox-avatar.png'];
+const CACHE='wildoku-beta-0.9.1';
+const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./fox-avatar.png','./forest-scene.jpg','./fox-character.png','./hannah-character.png','./ben-character.png','./clara-character.png','./marcel-character.png','./tom-character.png'];
 
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
