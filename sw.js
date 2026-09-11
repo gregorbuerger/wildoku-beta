@@ -1,6 +1,6 @@
-const CACHE='wildoku-beta-0.9.11';
+const CACHE='wildoku-beta-0.9.12';
 const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./fox-avatar.png',
-'./forest-bg.svg','./tree-stump.svg','./boulder.svg','./campfire.svg','./lantern.svg','./flat-rock.svg','./bench.svg',
+'./forest-bg.svg','./tree-stump.png','./boulder.svg','./campfire.svg','./lantern.svg','./flat-rock.svg','./bench.svg',
 './fox-character.png','./hannah-character.png','./ben-character.png','./clara-character.png','./marcel-character.png','./tom-character.png',
 './lukas-character.png','./tina-character.png','./lena-character.png','./jonas-character.png','./sophie-character.png','./finn-character.png'];
 self.addEventListener('install',event=>{event.waitUntil((async()=>{const cache=await caches.open(CACHE);for(const path of APP_SHELL){const req=new Request(path,{cache:'reload'});const res=await fetch(req);if(!res.ok)throw new Error('Cache install failed: '+path);await cache.put(path,res.clone())}})())});
