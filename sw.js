@@ -1,6 +1,67 @@
-const CACHE='wildoku-beta-0.9.24';
-const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./fox-avatar.png','./version.json'];
-self.addEventListener('install',event=>{event.waitUntil((async()=>{const cache=await caches.open(CACHE);for(const path of APP_SHELL){try{const req=new Request(path,{cache:'reload'});const res=await fetch(req);if(res&&res.ok)await cache.put(req,res.clone())}catch(e){}}await self.skipWaiting()})())});
-self.addEventListener('activate',event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('wildoku-beta-')&&k!==CACHE).map(k=>caches.delete(k)));await self.clients.claim()})())});
-self.addEventListener('message',event=>{if(event.data&&event.data.type==='SKIP_WAITING')self.skipWaiting()});
-self.addEventListener('fetch',event=>{const req=event.request;if(req.method!=='GET')return;const url=new URL(req.url);if(url.origin!==self.location.origin)return;if(url.pathname.endsWith('/version.json')){event.respondWith(fetch(req,{cache:'no-store'}).catch(()=>caches.match(req)));return}if(req.mode==='navigate'){event.respondWith((async()=>{try{const fresh=await fetch(req,{cache:'no-store'});if(fresh&&fresh.ok){const c=await caches.open(CACHE);await c.put(new Request('./index.html'),fresh.clone());return fresh}}catch(e){}const c=await caches.open(CACHE);return (await c.match('./index.html'))||(await c.match('./'))||new Response('Offline',{status:503})})());return}event.respondWith((async()=>{const c=await caches.open(CACHE);const hit=await c.match(req);if(hit)return hit;try{const fresh=await fetch(req);if(fresh&&fresh.ok)await c.put(req,fresh.clone());return fresh}catch(e){return new Response('',{status:504})}})())});
+const CACHE='wildoku-beta-0.9.25';
+const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+
+self.addEventListener('install',event=>{
+  event.waitUntil((async()=>{
+    const cache=await caches.open(CACHE);
+    await cache.addAll(APP_SHELL);
+    await self.skipWaiting();
+  })());
+});
+
+self.addEventListener('activate',event=>{
+  event.waitUntil((async()=>{
+    const keys=await caches.keys();
+    await Promise.all(keys.filter(k=>k.startsWith('wildoku-')&&k!==CACHE).map(k=>caches.delete(k)));
+    await self.clients.claim();
+  })());
+});
+
+self.addEventListener('message',event=>{
+  if(event.data&&event.data.type==='SKIP_WAITING') self.skipWaiting();
+});
+
+self.addEventListener('fetch',event=>{
+  const req=event.request;
+  if(req.method!=='GET') return;
+  const url=new URL(req.url);
+
+  // Update metadata must never be required for offline play.
+  if(url.origin===self.location.origin && url.pathname.endsWith('/version.json')){
+    event.respondWith(fetch(req,{cache:'no-store'}));
+    return;
+  }
+
+  // Every app navigation is served from the locally installed shell first.
+  if(req.mode==='navigate'){
+    event.respondWith((async()=>{
+      const cache=await caches.open(CACHE);
+      const local=await cache.match('./index.html') || await cache.match('./');
+      if(local) return local;
+      try{
+        const fresh=await fetch(req,{cache:'no-store'});
+        if(fresh&&fresh.ok) await cache.put('./index.html',fresh.clone());
+        return fresh;
+      }catch(err){
+        return new Response('<!doctype html><meta charset="utf-8"><title>Wildoku</title><p>Wildoku konnte lokal nicht geladen werden. Bitte einmal online starten, damit die Offline-Version gespeichert wird.</p>',{headers:{'Content-Type':'text/html; charset=utf-8'}});
+      }
+    })());
+    return;
+  }
+
+  // Same-origin app assets are cache-first; external resources are never needed to start/play.
+  if(url.origin===self.location.origin){
+    event.respondWith((async()=>{
+      const cache=await caches.open(CACHE);
+      const local=await cache.match(req);
+      if(local) return local;
+      try{
+        const fresh=await fetch(req);
+        if(fresh&&fresh.ok) await cache.put(req,fresh.clone());
+        return fresh;
+      }catch(err){
+        return new Response('',{status:504,statusText:'Offline'});
+      }
+    })());
+  }
+});
