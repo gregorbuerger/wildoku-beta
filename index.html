@@ -95,7 +95,7 @@ header{margin:0 2px 8px}.brand{font-size:31px}.infobtn{width:42px;height:42px;fo
 @keyframes waldTargetPulse{from{opacity:.68;transform:scale(.94)}to{opacity:1;transform:scale(1.03)}}
 @media(max-width:430px){#classroom.layered-forest-scene{width:calc(100% - 54px)!important;margin-right:54px!important}#seatGame .forest-zoom-controls{width:47px!important}}
 </style>
-</head><body><main class="app"><header><div class="brand">Wildoku 🦊 <span class="beta-label">BETA</span></div><div class="topactions"><button class="infobtn" id="infoBtn" aria-label="Anleitung">?</button><div class="badge" id="net">bereit</div></div></header><div class="game-switch"><button id="gameWildoku" class="active">🦊 Wildoku</button><button id="gameSeats">🪑 Platzspiel</button></div><div class="updatebar" id="updatebar"><span id="updatebarText">Neue Wildoku-Version verfügbar.</span><div class="updateactions"><button class="secondary" id="updateLater">Später</button><button id="updatebtn">Jetzt aktualisieren</button></div></div><div class="wildoku-game" id="wildokuGame"><div class="sizebar" id="sizebar"><button class="sizebtn" data-size="5">5×5</button><button class="sizebtn active" data-size="6">6×6</button><button class="sizebtn" data-size="7">7×7</button><button class="sizebtn" data-size="8">8×8</button><button class="sizebtn" data-size="random">🎲 Zufall</button></div><div class="diffbar" id="diffbar"><button class="diffbtn" data-diff="relaxed">Entspannt</button><button class="diffbtn active" data-diff="normal">Normal</button><button class="diffbtn" data-diff="tricky">Knifflig</button></div><section class="info"><div><div class="level" id="level">Rätsel</div><div class="sub" id="sub">Wird lokal erzeugt …</div></div><div class="rightinfo"><div class="lives" id="lives">❤️❤️❤️</div><div class="timer" id="timer">00:00</div></div></section><div class="boardwrap"><div class="board" id="board"></div><div class="creating" id="creating">Bitte warten …<br>Level wird erstellt</div></div><div class="status" id="status"></div><div class="helps"><button class="helpbtn" id="hint">💡 Tipp <span id="hintCount">3</span></button><button class="helpbtn" id="reveal">🦊 Tier zeigen <span id="revealCount">1</span></button></div><div class="hintbox" id="hintbox"></div><div class="controls"><button class="btn" id="undo">↶ Rückgängig</button><button class="btn" id="new">✨ Neues Rätsel</button><button class="btn" id="reset">↻ Neustart</button></div><div class="legend"><b>Bedienung:</b> 1× tippen = ✕ Ausschluss · 2× tippen = 🦊 Tier · gedrückt halten = ? Kandidat.</div></div><section class="seatgame" id="seatGame"><div class="seat-title"><div><h2>🪑 Platzrätsel</h2><small id="seatSceneName">🏫 Klassenzimmer · logisch lösbar</small></div><div id="seatLives">❤️❤️❤️</div></div><div class="seat-diffbar" id="seatDiffbar"><button data-seatdiff="relaxed">Entspannt</button><button data-seatdiff="normal" class="active">Normal</button><button data-seatdiff="tricky">Knifflig</button></div><div class="seat-scene"><div class="place-scene scene-classroom" id="classroom"></div><div class="seatbank" id="seatBank"></div><div class="seat-status" id="seatStatus">Ziehe die Personen anhand der Hinweise auf ihre Plätze.</div></div><div class="clues" id="seatClues"></div><div class="seat-help"><button id="seatReset">↻ Neustart</button><button id="seatHint">💡 Tipp</button></div></section></main><div class="modal" id="infoModal"><div class="modalcard"><div id="wildHelp"><h2>🦊 Wildoku – Hilfe</h2><p><b>1× tippen</b> = ✕ Ausschluss<br><b>2× tippen</b> = 🦊 Tier<br><b>Gedrückt halten</b> = ? Kandidat</p><p>In jeder Zeile, Spalte und Farbregion steht genau ein Tier. Tiere dürfen sich auch diagonal nicht berühren.</p><p>Du hast pro Rätsel <b>3 Leben</b>, <b>3 Tipps</b> und <b>1× Tier zeigen</b>.</p><div class="settingrow"><span><b>Zonengrenzen</b><br><small>Nur für Wildoku</small></span><button class="switch" id="regionToggle">Ein</button></div><p class="difficulty-note">Entspannt: direkte Logik · Normal: längere Schlussketten · Knifflig: darf gelegentlich eine Annahme verlangen.</p></div><div id="seatHelp" style="display:none"><h2>🪑 Platzspiel – Hilfe</h2><p>Ziehe eine Figur auf einen Platz oder tippe zuerst die Figur und danach den Platz an. Eine ausgewählte Figur wird deutlich markiert.</p><p>Nutze die Hinweise als Logikkette. <b>Entspannt</b> bietet mehr direkte Einstiege, <b>Normal</b> kombiniert Namen und sichtbare Merkmale, <b>Knifflig</b> darf gelegentlich zwei plausible Möglichkeiten offenlassen. Du hast <b>3 Leben</b>.</p><p>Hinweise können Personen auch über Merkmale beschreiben, z. B. „der Mann mit dem Bart“ oder „die Frau mit dem Hut“. In Waldleveln kann auch der <b>Wildoku-Fuchs</b> selbst mitspielen.</p></div><hr style="border:0;border-top:1px solid #0001;margin:16px 0"><p class="difficulty-note">Wildoku Beta 0.9.18</p><div class="settingrow"><span><b>Internet in Wildoku</b><br><small id="networkModeText">Erlaubt automatische Updateprüfung</small></span><button class="switch" id="networkToggle">Online</button></div><div class="settingrow"><span><b>Updates</b><br><small id="updateStatus">Manuell nach einer neuen Version suchen</small></span><button class="switch" id="checkUpdateBtn">Suchen</button></div><div class="sharecard"><b>📱 Wildoku teilen</b><p>„Ich hab ein Spiel mit ChatGPT gemacht. Wenn du magst, kannst du es auch spielen. Ich kann dir den Link schicken oder du scannst den QR-Code.“</p><img id="shareQr" alt="QR-Code zu Wildoku"><div class="shareactions"><button id="shareLinkBtn">Link teilen</button><button id="copyLinkBtn">Link kopieren</button></div><div class="shareinstall"><p><b>📱 Als App installieren</b><br><b>iPhone / iPad:</b> in Safari öffnen → Teilen → „Zum Home-Bildschirm“.<br><b>Android:</b> in Chrome öffnen → Menü ⋮ → „Zum Startbildschirm hinzufügen“ bzw. „App installieren“.</p><p><b>Danach auch offline spielbar.</b> Keine Werbung, kein Konto nötig.</p></div></div><button class="modalclose" id="infoClose">Schließen</button></div></div><div class="toast" id="toast"></div>
+</head><body><main class="app"><header><div class="brand">Wildoku 🦊 <span class="beta-label">BETA</span></div><div class="topactions"><button class="infobtn" id="infoBtn" aria-label="Anleitung">?</button><div class="badge" id="net">bereit</div></div></header><div class="game-switch"><button id="gameWildoku" class="active">🦊 Wildoku</button><button id="gameSeats">🪑 Platzspiel</button></div><div class="updatebar" id="updatebar"><span id="updatebarText">Neue Wildoku-Version verfügbar.</span><div class="updateactions"><button class="secondary" id="updateLater">Später</button><button id="updatebtn">Jetzt aktualisieren</button></div></div><div class="wildoku-game" id="wildokuGame"><div class="sizebar" id="sizebar"><button class="sizebtn" data-size="5">5×5</button><button class="sizebtn active" data-size="6">6×6</button><button class="sizebtn" data-size="7">7×7</button><button class="sizebtn" data-size="8">8×8</button><button class="sizebtn" data-size="random">🎲 Zufall</button></div><div class="diffbar" id="diffbar"><button class="diffbtn" data-diff="relaxed">Entspannt</button><button class="diffbtn active" data-diff="normal">Normal</button><button class="diffbtn" data-diff="tricky">Knifflig</button></div><section class="info"><div><div class="level" id="level">Rätsel</div><div class="sub" id="sub">Wird lokal erzeugt …</div></div><div class="rightinfo"><div class="lives" id="lives">❤️❤️❤️</div><div class="timer" id="timer">00:00</div></div></section><div class="boardwrap"><div class="board" id="board"></div><div class="creating" id="creating">Bitte warten …<br>Level wird erstellt</div></div><div class="status" id="status"></div><div class="helps"><button class="helpbtn" id="hint">💡 Tipp <span id="hintCount">3</span></button><button class="helpbtn" id="reveal">🦊 Tier zeigen <span id="revealCount">1</span></button></div><div class="hintbox" id="hintbox"></div><div class="controls"><button class="btn" id="undo">↶ Rückgängig</button><button class="btn" id="new">✨ Neues Rätsel</button><button class="btn" id="reset">↻ Neustart</button></div><div class="legend"><b>Bedienung:</b> 1× tippen = ✕ Ausschluss · 2× tippen = 🦊 Tier · gedrückt halten = ? Kandidat.</div></div><section class="seatgame" id="seatGame"><div class="seat-title"><div><h2>🪑 Platzrätsel</h2><small id="seatSceneName">🏫 Klassenzimmer · logisch lösbar</small></div><div id="seatLives">❤️❤️❤️</div></div><div class="seat-diffbar" id="seatDiffbar"><button data-seatdiff="relaxed">Entspannt</button><button data-seatdiff="normal" class="active">Normal</button><button data-seatdiff="tricky">Knifflig</button></div><div class="seat-scene"><div class="place-scene scene-classroom" id="classroom"></div><div class="seatbank" id="seatBank"></div><div class="seat-status" id="seatStatus">Ziehe die Personen anhand der Hinweise auf ihre Plätze.</div></div><div class="clues" id="seatClues"></div><div class="seat-help"><button id="seatReset">↻ Neustart</button><button id="seatHint">💡 Tipp</button></div></section></main><div class="modal" id="infoModal"><div class="modalcard"><div id="wildHelp"><h2>🦊 Wildoku – Hilfe</h2><p><b>1× tippen</b> = ✕ Ausschluss<br><b>2× tippen</b> = 🦊 Tier<br><b>Gedrückt halten</b> = ? Kandidat</p><p>In jeder Zeile, Spalte und Farbregion steht genau ein Tier. Tiere dürfen sich auch diagonal nicht berühren.</p><p>Du hast pro Rätsel <b>3 Leben</b>, <b>3 Tipps</b> und <b>1× Tier zeigen</b>.</p><div class="settingrow"><span><b>Zonengrenzen</b><br><small>Nur für Wildoku</small></span><button class="switch" id="regionToggle">Ein</button></div><p class="difficulty-note">Entspannt: direkte Logik · Normal: längere Schlussketten · Knifflig: darf gelegentlich eine Annahme verlangen.</p></div><div id="seatHelp" style="display:none"><h2>🪑 Platzspiel – Hilfe</h2><p>Ziehe eine Figur auf einen Platz oder tippe zuerst die Figur und danach den Platz an. Eine ausgewählte Figur wird deutlich markiert.</p><p>Nutze die Hinweise als Logikkette. <b>Entspannt</b> bietet mehr direkte Einstiege, <b>Normal</b> kombiniert Namen und sichtbare Merkmale, <b>Knifflig</b> darf gelegentlich zwei plausible Möglichkeiten offenlassen. Du hast <b>3 Leben</b>.</p><p>Hinweise können Personen auch über Merkmale beschreiben, z. B. „der Mann mit dem Bart“ oder „die Frau mit dem Hut“. In Waldleveln kann auch der <b>Wildoku-Fuchs</b> selbst mitspielen.</p></div><hr style="border:0;border-top:1px solid #0001;margin:16px 0"><p class="difficulty-note">Wildoku Beta 0.9.21</p><div class="settingrow"><span><b>Internet in Wildoku</b><br><small id="networkModeText">Erlaubt automatische Updateprüfung</small></span><button class="switch" id="networkToggle">Online</button></div><div class="settingrow"><span><b>Updates</b><br><small id="updateStatus">Manuell nach einer neuen Version suchen</small></span><button class="switch" id="checkUpdateBtn">Suchen</button></div><div class="sharecard"><b>📱 Wildoku teilen</b><p>„Ich hab ein Spiel mit ChatGPT gemacht. Wenn du magst, kannst du es auch spielen. Ich kann dir den Link schicken oder du scannst den QR-Code.“</p><img id="shareQr" alt="QR-Code zu Wildoku"><div class="shareactions"><button id="shareLinkBtn">Link teilen</button><button id="copyLinkBtn">Link kopieren</button></div><div class="shareinstall"><p><b>📱 Als App installieren</b><br><b>iPhone / iPad:</b> in Safari öffnen → Teilen → „Zum Home-Bildschirm“.<br><b>Android:</b> in Chrome öffnen → Menü ⋮ → „Zum Startbildschirm hinzufügen“ bzw. „App installieren“.</p><p><b>Danach auch offline spielbar.</b> Keine Werbung, kein Konto nötig.</p></div></div><button class="modalclose" id="infoClose">Schließen</button></div></div><div class="toast" id="toast"></div>
 <script>
 let N=6; const ANIMAL='🦊'; let sizeMode=localStorage.getItem('wildokuSizeMode')||'6';let difficultyMode=localStorage.getItem('wildokuDifficulty')||'normal',activeDifficulty=difficultyMode;let showRegionBorders=localStorage.getItem('wildokuRegionBorders')!=='0';
 const board=document.getElementById('board'),status=document.getElementById('status'),toast=document.getElementById('toast');
@@ -213,7 +213,7 @@ function net(){let n=document.getElementById('net');if(!networkAllowed){n.textCo
 function applyNetworkMode(){let b=document.getElementById('networkToggle'),t=document.getElementById('networkModeText');if(b){b.textContent=networkAllowed?'Online':'Offline';b.classList.toggle('off',!networkAllowed)}if(t)t.textContent=networkAllowed?'Wildoku darf für Updates ins Internet':'Wildoku nutzt keine Internetverbindung';net()}
 document.getElementById('networkToggle').onclick=()=>{networkAllowed=!networkAllowed;localStorage.setItem('wildokuNetworkAllowed',networkAllowed?'1':'0');applyNetworkMode();if(networkAllowed&&navigator.onLine)explicitVersionCheckGlobal()};
 addEventListener('online',net);addEventListener('offline',net);applyNetworkMode();
-const APP_VERSION='0.9.18';
+const APP_VERSION='0.9.21';
 async function fetchServerVersion(){
   // Immer dieselbe Wildoku-Installation ansprechen, unabhängig davon,
   // ob die PWA über /wildoku/, /wildoku/index.html oder mit Query gestartet wurde.
@@ -1088,7 +1088,7 @@ body.seat-active #seatClues{max-height:158px!important;min-height:118px!importan
 #classroom.layered-forest-scene .landmark{display:none!important}
 </style>
 <style id="wald-fit-0918">
-/* 0.9.18: 100% is the complete gameplay world. No landmark is cropped. */
+/* 0.9.21: 100% is the complete gameplay world. No landmark is cropped. */
 #classroom.layered-forest-scene{
   aspect-ratio:1536/1024!important;
   background:#dce9d0!important;
@@ -1099,3 +1099,179 @@ body.seat-active #seatClues{max-height:158px!important;min-height:118px!importan
   background:#dce9d0!important;
 }
 </style>
+
+<style id="wald-fit-0919">
+/* 0.9.21: natural artwork geometry. 100% shows the whole approved forest without letterbox bars. */
+#classroom.layered-forest-scene{
+  aspect-ratio:1536/452!important;
+  height:auto!important;
+  min-height:0!important;
+  background:transparent!important;
+}
+#classroom.layered-forest-scene .forest-bg{
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:fill!important;
+  object-position:center!important;
+  background:transparent!important;
+}
+#classroom.layered-forest-scene .seat{
+  width:15%!important;
+  height:48%!important;
+  min-height:0!important;
+}
+#classroom.layered-forest-scene .seat.targetable::after{
+  inset:18%!important;
+  background:rgba(255,238,118,.18)!important;
+  box-shadow:0 0 0 3px rgba(255,181,0,.82),0 0 16px rgba(255,200,30,.48)!important;
+}
+#classroom.layered-forest-scene .seat.dropfocus::after{
+  inset:12%!important;
+  background:rgba(255,225,80,.30)!important;
+  box-shadow:0 0 0 4px rgba(255,166,0,.95),0 0 22px rgba(255,190,20,.72)!important;
+}
+@media(max-width:430px){
+  #classroom.layered-forest-scene{width:calc(100% - 54px)!important;margin-right:54px!important}
+}
+</style>
+<script id="wald-fit-0919-js">
+(function(){
+  const f=PLACE_SCENES.forest;
+  const corrected=[
+    {x:35,y:62,label:'beim Baumstumpf',tags:['stump','tree']},
+    {x:77,y:34,label:'beim großen Felsen',tags:['rock']},
+    {x:63,y:62,label:'direkt am Lagerfeuer',tags:['fire']},
+    {x:93,y:52,label:'bei der Laterne',tags:['lantern']},
+    {x:78,y:82,label:'auf dem flachen Stein',tags:['flatrock']},
+    {x:14,y:47,label:'an der Holzbank',tags:['bench']}
+  ];
+  f.positions=corrected;
+  const pairs={left:[],right:[],front:[],behind:[]};
+  for(let a=0;a<corrected.length;a++)for(let b=0;b<corrected.length;b++)if(a!==b){
+    const dx=corrected[a].x-corrected[b].x,dy=corrected[a].y-corrected[b].y,dist=Math.hypot(dx,dy);
+    if(dist>38)continue;
+    if(Math.abs(dy)<=16&&Math.abs(dx)>=10)(dx<0?pairs.left:pairs.right).push([a,b]);
+    if(Math.abs(dx)<=20&&Math.abs(dy)>=10)(dy<0?pairs.front:pairs.behind).push([a,b]);
+  }
+  f.pairs=pairs;
+  const previous=renderScene;
+  renderScene=function(){previous();const seats=document.querySelectorAll('#classroom .seat');corrected.forEach((p,i)=>{if(seats[i]){seats[i].style.left=p.x+'%';seats[i].style.top=p.y+'%'}})};
+  seatPuzzle=null;
+  if(localStorage.getItem('wildokuBetaGame')==='seats') resetSeatGame();
+})();
+</script>
+<style id="wald-0920-modern">
+/* 0.9.21: neutral seats; only hover/drop feedback. Modern edge zoom like the reference. */
+#classroom.layered-forest-scene .seat.targetable::after{display:none!important}
+#classroom.layered-forest-scene .seat.dropfocus::after{display:block!important;content:"";position:absolute;inset:24%!important;border-radius:999px;background:rgba(255,255,255,.16)!important;box-shadow:0 0 0 2px rgba(255,255,255,.92),0 0 0 4px rgba(92,74,166,.55),0 0 12px rgba(92,74,166,.35)!important}
+#seatGame .forest-zoom-controls{right:2px!important;top:50%!important;transform:translateY(-50%)!important;width:25px!important;padding:0!important;gap:5px!important;background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+#seatGame .forest-zoom-controls .zoom-plus,#seatGame .forest-zoom-controls .zoom-minus{width:25px!important;height:25px!important;padding:0!important;border-radius:50%!important;background:rgba(247,244,234,.78)!important;border:1.5px solid rgba(74,73,78,.42)!important;color:#777!important;font-size:18px!important;box-shadow:none!important}
+#seatGame .forest-zoom-controls .forest-zoom-slider{width:16px!important;height:122px!important;margin:0!important;accent-color:#8d35d5!important;opacity:.92}
+#seatGame .forest-zoom-controls .zoom-value{display:none!important}
+@media(max-width:430px){#classroom.layered-forest-scene{width:calc(100% - 30px)!important;margin-right:30px!important}}
+</style>
+<script id="wald-0920-level">
+(function(){
+  // One deliberately authored forest level to test richer clue families before changing the generator.
+  const oldChoose=chooseSeatScene, oldMake=makeSeatPuzzle, oldText=clueText, oldHolds=clueHolds, oldPartial=partialClueTrue;
+  const ids=['hannah','ben','clara','marcel','tom','lena'];
+  function findPerson(id){
+    const all=[...baseSeatPeople,
+      {id:'lena',name:'Lena',face:'<img src="lena-character.png" alt="Lena">',gender:'Frau',hat:false,glasses:true,beard:false,hair:'pink'}];
+    return all.find(p=>p.id===id);
+  }
+  chooseSeatScene=function(){seatSceneKey='forest';seatPeople=ids.map(findPerson);renderScene()};
+  // solution: Hannah stump, Marcel boulder, Ben fire, Clara lantern, Lena flat rock, Tom bench.
+  const solution={hannah:0,marcel:1,ben:2,clara:3,lena:4,tom:5};
+  const authored=[
+    {type:'seat',a:'hannah',seat:0,entry:true,chain:true},
+    {type:'closer',a:'ben',b:'marcel',landmark:'fire',chain:true},
+    {type:'seat',a:'clara',seat:3,trait:true,chain:true},
+    {type:'sameSide',a:'tom',b:'hannah',side:'left',chain:true},
+    {type:'closerWater',a:'lena',b:'tom',chain:true},
+    {type:'seat',a:'marcel',seat:1,trait:true,chain:true}
+  ];
+  makeSeatPuzzle=function(){return{solution:{...solution},clues:authored.map(x=>({...x}))}};
+  const xy=i=>PLACE_SCENES.forest.positions[i];
+  const landmark={fire:{x:63,y:62},water:{x:50,y:20}};
+  clueHolds=function(c,a){
+    if(c.type==='closer'){if(a[c.a]===undefined||a[c.b]===undefined)return false;const L=landmark[c.landmark];const da=Math.hypot(xy(a[c.a]).x-L.x,xy(a[c.a]).y-L.y),db=Math.hypot(xy(a[c.b]).x-L.x,xy(a[c.b]).y-L.y);return da<db}
+    if(c.type==='closerWater'){if(a[c.a]===undefined||a[c.b]===undefined)return false;return xy(a[c.a]).y<xy(a[c.b]).y}
+    if(c.type==='sameSide'){if(a[c.a]===undefined||a[c.b]===undefined)return false;return (xy(a[c.a]).x<50)===(xy(a[c.b]).x<50)}
+    return oldHolds(c,a)
+  };
+  partialClueTrue=function(c,a){
+    if(['closer','closerWater','sameSide'].includes(c.type)){if(a[c.a]===undefined||a[c.b]===undefined)return false;return clueHolds(c,a)}
+    return oldPartial(c,a)
+  };
+  clueText=function(c){
+    if(c.type==='closer')return `${subject(c.a,c.trait)} steht <b>näher am Lagerfeuer</b> als ${subject(c.b,c.traitB)}.`;
+    if(c.type==='closerWater')return `${subject(c.a,c.trait)} steht <b>näher am Wasser</b> als ${subject(c.b,c.traitB)}.`;
+    if(c.type==='sameSide')return `${subject(c.a,c.trait)} und ${subject(c.b,c.traitB)} stehen <b>auf derselben Seite der Lichtung</b>.`;
+    return oldText(c)
+      .replace('beim Baumstumpf','am Baumstumpf')
+      .replace('beim großen Felsen','am großen Felsen')
+      .replace('bei der Laterne','an der Laterne');
+  };
+  // No mass target highlighting on selection. Drop focus remains available while dragging.
+  const oldSel=setSelectedPerson;
+  setSelectedPerson=function(id){oldSel(id);document.querySelectorAll('#classroom .seat').forEach(s=>s.classList.remove('targetable'))};
+  seatPuzzle=null;
+  if(localStorage.getItem('wildokuBetaGame')==='seats')resetSeatGame();
+})();
+</script>
+<style id="wald-0921-fullzone">
+/* 0.9.21: the game world fills the play zone. The zoom control floats at the edge and does not reserve width. */
+#seatGame .seat-scene{position:relative!important;overflow:hidden!important}
+#classroom.layered-forest-scene{
+  width:100%!important;
+  margin:0!important;
+  aspect-ratio:1536/610!important;
+  height:auto!important;
+  min-height:0!important;
+  overflow:hidden!important;
+  border-radius:18px!important;
+  background:#dce9d0!important;
+}
+#classroom.layered-forest-scene .forest-bg{
+  inset:0!important;width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:center 54%!important;
+}
+/* Seat geometry follows the filled crop. All six gameplay anchors stay in the safe central composition. */
+#classroom.layered-forest-scene .seat{width:13%!important;height:34%!important;min-height:0!important}
+#seatGame .forest-zoom-controls{
+  right:5px!important;top:50%!important;transform:translateY(-50%)!important;
+  width:22px!important;padding:4px 0!important;gap:4px!important;
+  background:rgba(247,244,234,.42)!important;border:0!important;border-radius:14px!important;
+  box-shadow:0 1px 5px rgba(0,0,0,.10)!important;
+}
+#seatGame .forest-zoom-controls .zoom-plus,#seatGame .forest-zoom-controls .zoom-minus{
+  width:22px!important;height:22px!important;border:0!important;background:transparent!important;
+  color:#666!important;font-size:19px!important;font-weight:500!important
+}
+#seatGame .forest-zoom-controls .forest-zoom-slider{width:12px!important;height:108px!important;accent-color:#9a35d5!important;opacity:.9!important}
+#seatGame .forest-zoom-controls .zoom-value{display:none!important}
+</style>
+<script id="wald-0921-fullzone-js">
+(function(){
+  const f=PLACE_SCENES.forest;
+  // Coordinates are tuned to the full-bleed 1536:610 viewport, not to an inset picture.
+  const p=[
+    {x:31,y:62,label:'am Baumstumpf',tags:['stump','tree']},
+    {x:77,y:33,label:'am großen Felsen',tags:['rock']},
+    {x:62,y:61,label:'direkt am Lagerfeuer',tags:['fire']},
+    {x:91,y:54,label:'an der Laterne',tags:['lantern']},
+    {x:77,y:81,label:'auf dem flachen Stein',tags:['flatrock']},
+    {x:13,y:48,label:'an der Holzbank',tags:['bench']}
+  ];
+  f.positions=p;
+  const rebuild=()=>{
+    const seats=document.querySelectorAll('#classroom .seat');
+    p.forEach((q,i)=>{if(seats[i]){seats[i].style.left=q.x+'%';seats[i].style.top=q.y+'%'}});
+  };
+  const prev=renderScene;renderScene=function(){prev();requestAnimationFrame(rebuild)};
+  // Make 100% the full-bleed baseline; zoom remains optional detail inspection.
+  requestAnimationFrame(()=>{if(localStorage.getItem('wildokuBetaGame')==='seats')rebuild()});
+})();
+</script>
