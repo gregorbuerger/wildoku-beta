@@ -1,5 +1,5 @@
-const CACHE='wildoku-beta-0.9.25';
-const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+const CACHE='wildoku-beta-v0.7.3';
+const APP_SHELL=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./apple-touch-icon.png'];
 
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
@@ -12,7 +12,7 @@ self.addEventListener('install',event=>{
 self.addEventListener('activate',event=>{
   event.waitUntil((async()=>{
     const keys=await caches.keys();
-    await Promise.all(keys.filter(k=>k.startsWith('wildoku-')&&k!==CACHE).map(k=>caches.delete(k)));
+    await Promise.all(keys.filter(k=>k.startsWith('wildoku-beta-')&&k!==CACHE).map(k=>caches.delete(k)));
     await self.clients.claim();
   })());
 });
@@ -25,14 +25,10 @@ self.addEventListener('fetch',event=>{
   const req=event.request;
   if(req.method!=='GET') return;
   const url=new URL(req.url);
-
-  // Update metadata must never be required for offline play.
   if(url.origin===self.location.origin && url.pathname.endsWith('/version.json')){
     event.respondWith(fetch(req,{cache:'no-store'}));
     return;
   }
-
-  // Every app navigation is served from the locally installed shell first.
   if(req.mode==='navigate'){
     event.respondWith((async()=>{
       const cache=await caches.open(CACHE);
@@ -43,13 +39,11 @@ self.addEventListener('fetch',event=>{
         if(fresh&&fresh.ok) await cache.put('./index.html',fresh.clone());
         return fresh;
       }catch(err){
-        return new Response('<!doctype html><meta charset="utf-8"><title>Wildoku</title><p>Wildoku konnte lokal nicht geladen werden. Bitte einmal online starten, damit die Offline-Version gespeichert wird.</p>',{headers:{'Content-Type':'text/html; charset=utf-8'}});
+        return new Response('<!doctype html><meta charset="utf-8"><title>Wildoku Beta</title><p>Wildoku Beta konnte lokal nicht geladen werden. Bitte einmal online starten, damit die Offline-Version gespeichert wird.</p>',{headers:{'Content-Type':'text/html; charset=utf-8'}});
       }
     })());
     return;
   }
-
-  // Same-origin app assets are cache-first; external resources are never needed to start/play.
   if(url.origin===self.location.origin){
     event.respondWith((async()=>{
       const cache=await caches.open(CACHE);
